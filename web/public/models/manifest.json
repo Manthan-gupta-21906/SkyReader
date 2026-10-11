@@ -1,0 +1,31 @@
+{
+  "$schema": "https://skyreader.app/models/manifest.json",
+  "version": 1,
+  "labels": {
+    "Ci": "Cirrus",
+    "Cc": "Cumulus",
+    "Cs": "Cirrostratus",
+    "Ac": "Altocumulus",
+    "As": "Altostratus",
+    "Ns": "Nimbostratus",
+    "Sc": "Stratocumulus",
+    "St": "Stratus",
+    "Cu": "Cumulus",
+    "Cb": "Cumulonimbus",
+    "Clr": "Clear sky"
+  },
+  "input_size": 224,
+  "preprocess": {
+    "resize": "short_side",
+    "crop": "center_crop",
+    "mean": [0.485, 0.456, 0.406],
+    "std": [0.229, 0.224, 0.225]
+  },
+  "calibration": {
+    "temperature": 1.3,
+    "reject_threshold": 0.45
+  },
+  "quantization": "int8",
+  "license": "MIT",
+  "source": "timm/mobilenetv3_small_100"
+}
