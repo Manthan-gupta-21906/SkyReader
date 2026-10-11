@@ -4,7 +4,7 @@ import tailwindcssVite from '@tailwindcss/vite'
 import { VitePWA } from 'vite-plugin-pwa'
 
 export default defineConfig({
-  base: './',
+  base: '/SkyReader/',
   plugins: [
     react(),
     tailwindcssVite(),
