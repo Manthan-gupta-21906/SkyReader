@@ -1,122 +1,70 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import { Outlet, Link, useLocation } from 'react-router-dom'
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const location = useLocation()
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    <div className="min-h-screen bg-primary">
+      <nav className="border-b border-border bg-white/90 backdrop-blur-sm shadow-sm">
+        <div className="max-w-[1200px] mx-auto px-4 h-16 flex items-center justify-between">
+          <Link to="/" className="font-medium text-accent">
+            SkyReader
+          </Link>
 
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
+          <div className="hidden md:flex items-center gap-6">
+            <Link to="/" className={location.pathname === '/' || location.pathname === '' ? 'text-accent font-medium' : 'text-muted hover:text-primary'}>
+              Sky
+            </Link>
+            <Link to="/log" className={location.pathname === '/log' ? 'text-accent font-medium' : 'text-muted hover:text-primary'}>
+              Log
+            </Link>
+            <Link to="/atlas" className={location.pathname === '/atlas' ? 'text-accent font-medium' : 'text-muted hover:text-primary'}>
+              Atlas
+            </Link>
+            <Link to="/settings" className={location.pathname === '/settings' ? 'text-accent font-medium' : 'text-muted hover:text-primary'}>
+              Settings
+            </Link>
+          </div>
         </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+      </nav>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+      <main className="py-4">
+        <Outlet />
+      </main>
+
+      <nav className="border-t border-border bg-white/90 backdrop-blur-sm sticky bottom-0 z-20">
+        <div className="max-w-[1200px] mx-auto px-4 h-16 flex items-center justify-between">
+          <div className="flex-1 text-center font-medium text-accent">SkyReader</div>
+
+          <div className="flex gap-2">
+            <Link to="/" className={location.pathname === '/' || location.pathname === '' ? 'bg-accent text-primary' : 'text-muted hover:text-primary'}>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M3 5a2 2 0 012-2h14a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V5zm0 6h14v5H3v-5z"/>
+              </svg>
+              Sky
+            </Link>
+            <Link to="/log" className={location.pathname === '/log' ? 'bg-accent text-primary' : 'text-muted hover:text-primary'}>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M14 2H6a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V8l-6-4"/>
+              </svg>
+              Log
+            </Link>
+            <Link to="/atlas" className={location.pathname === '/atlas' ? 'bg-accent text-primary' : 'text-muted hover:text-primary'}>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 7v7l5 5"/>
+              </svg>
+              Atlas
+            </Link>
+            <Link to="/settings" className={location.pathname === '/settings' ? 'bg-accent text-primary' : 'text-muted hover:text-primary'}>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 6v6l4 2"/>
+              </svg>
+              Settings
+            </Link>
+          </div>
+        </div>
+      </nav>
+    </div>
   )
 }
-
-export default App

@@ -1,0 +1,4 @@
+<!-- Cb - Cumulonimbus: towering thunderstorm clouds -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-label="Cumulonimbus cloud">
+  <path fill="#ef4444" d="M32 4c16 0 28 16 28 34v10c0 6-5 10-11 8l-4 2V4c0-10 5-15 11-9zM16 30c0 5 3 8 5 9s5 3 5-8h-6zM48 30c0 5 3 8 5 9s5 3 5-8h-6z"/>
+</svg>

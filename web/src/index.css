@@ -1,1 +1,73 @@
 @import "tailwindcss";
+
+:root {
+  --bg: #fff;
+  --fg: #1e2a44;
+  --muted: #6b6375;
+  --accent: #aa3bff;
+  --accent-bg: rgba(170, 59, 255, 0.1);
+  --border: #e5e4e7;
+
+  --verdict-go: #3c9a5f;
+  --verdict-go-care: #f2a33a;
+  --verdict-wait: #d64545;
+  --verdict-stay: #5b6577;
+
+  --cloud-white: #f7f9fc;
+  --sky-blue: #3b82c4;
+
+  --font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --font-size-xs: 0.875rem;
+  --font-size-sm: 1rem;
+  --font-size-md: 1.25rem;
+  --font-size-lg: 1.5rem;
+  --font-size-xlg: 2rem;
+  --font-size-xxlg: 2.5rem;
+  --font-size-verdict: 3rem;
+
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+
+  --spacing-1: 0.25rem;
+  --spacing-2: 0.5rem;
+  --spacing-3: 0.75rem;
+  --spacing-4: 1rem;
+  --spacing-6: 1.5rem;
+  --spacing-8: 2rem;
+
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #16171d;
+    --fg: #f3f4f6;
+    --muted: #9ca3af;
+    --accent: #c084fc;
+    --accent-bg: rgba(192, 132, 252, 0.15);
+    --border: #2e303a;
+
+    --verdict-go: #38bdf8;
+    --verdict-go-care: #fcd34d;
+    --verdict-wait: #f87171;
+    --verdict-stay: #6b7280;
+
+    --cloud-white: #1e293b;
+    --sky-blue: #60a5fa;
+  }
+}
+
+html {
+  font-family: var(--font-family);
+  font-size: 18px;
+  line-height: 145%;
+  color-scheme: light dark;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+}

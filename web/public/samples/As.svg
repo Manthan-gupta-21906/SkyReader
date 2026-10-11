@@ -1,0 +1,4 @@
+<!-- As - Altostratus: gray mid-level cloud sheet -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-label="Altostratus cloud">
+  <path fill="#f472b6" d="M32 4c16 0 28 14 28 32V40C32 56 24 64 16 64V36C8 64 0 56 0 36V8c0-16 16-28 32-28z"/>
+</svg>

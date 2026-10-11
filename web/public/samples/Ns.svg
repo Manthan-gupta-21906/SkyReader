@@ -1,0 +1,4 @@
+<!-- Ns - Nimbostratus: dark, rainy cloud layer -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-label="Nimbostratus cloud">
+  <path fill="#f472b6" d="M32 4c16 24 32 24 48 0V4c-16-4-32-4-48 0v36zM32 56c8 0 12-5 12-12V24c0-7-7-12-12-12S12 17 12 24v8z"/>
+</svg>
