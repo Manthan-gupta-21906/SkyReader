@@ -127,7 +127,7 @@ export class SettingRepo {
     return db.setting.where('key').equals(key).first()
   }
   async save(setting: { key: string; value: string }) {
-    return db.setting.add({ key: setting.key, value: setting.value })
+    return db.setting.put({ key: setting.key, value: setting.value })
   }
   async getAll(): Promise<Setting[]> {
     return db.setting.orderBy('key').toArray()
