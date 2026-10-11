@@ -1,0 +1,4 @@
+<!-- Sc - Stratocumulus: large rounded cloud masses -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-label="Stratocumulus cloud">
+  <path fill="#fbbf24" d="M32 4c12 8 24 10 24 24s-12 16-24 16S8 20 8 12 20 4 32 4zM32 24c10 0 16 7 16 14v14c0-7-6-11-16-11z"/>
+</svg>
