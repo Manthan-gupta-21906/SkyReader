@@ -101,3 +101,16 @@ export async function fetchDailyWeather(lat: number, lon: number): Promise<{
     return null
   }
 }
+
+/** Compute age of a weather cache entry in minutes.
+ *  Returns the age in minutes, or null if the cache entry is invalid.
+ */
+export function computeCacheAge(fetchedAt: string | null, maxAgeMinutes: number = 60): number | null {
+  if (!fetchedAt) return null
+  const fetchedTime = new Date(fetchedAt).getTime()
+  const now = Date.now()
+  const ageMs = now - fetchedTime
+  const ageMin = Math.round(ageMs / 60000)
+  if (ageMin > maxAgeMinutes) return null // stale beyond usable
+  return ageMin
+}

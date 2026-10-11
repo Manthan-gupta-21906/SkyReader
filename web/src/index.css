@@ -1,73 +1,165 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-  --bg: #fff;
-  --fg: #1e2a44;
-  --muted: #6b6375;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --border: #e5e4e7;
+/* Accessibility: focus visible, reduced motion, high contrast */
+@layer base {
+  *:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
 
-  --verdict-go: #3c9a5f;
-  --verdict-go-care: #f2a33a;
-  --verdict-wait: #d64545;
-  --verdict-stay: #5b6577;
+  *:focus {
+    outline: 2px solid var(--accent-bg);
+    outline-offset: 2px;
+  }
 
-  --cloud-white: #f7f9fc;
-  --sky-blue: #3b82c4;
+  button:focus-visible {
+    background: var(--accent-bg);
+  }
 
-  --font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --font-size-xs: 0.875rem;
-  --font-size-sm: 1rem;
-  --font-size-md: 1.25rem;
-  --font-size-lg: 1.5rem;
-  --font-size-xlg: 2rem;
-  --font-size-xxlg: 2.5rem;
-  --font-size-verdict: 3rem;
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0s !important;
+      transition-duration: 0s !important;
+    }
+  }
 
-  --radius-sm: 0.5rem;
-  --radius-md: 0.75rem;
-
-  --spacing-1: 0.25rem;
-  --spacing-2: 0.5rem;
-  --spacing-3: 0.75rem;
-  --spacing-4: 1rem;
-  --spacing-6: 1.5rem;
-  --spacing-8: 2rem;
-
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #16171d;
-    --fg: #f3f4f6;
-    --muted: #9ca3af;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --border: #2e303a;
-
-    --verdict-go: #38bdf8;
-    --verdict-go-care: #fcd34d;
-    --verdict-wait: #f87171;
-    --verdict-stay: #6b7280;
-
-    --cloud-white: #1e293b;
-    --sky-blue: #60a5fa;
+  /* High contrast support */
+  @supports (padding: 20px) {
+    /* Already handled by vars */
   }
 }
 
-html {
-  font-family: var(--font-family);
-  font-size: 18px;
-  line-height: 145%;
-  color-scheme: light dark;
+/* Accessibility: skip link */
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  padding: 0;
+  white-space: nowrap;
+  z-index: -100;
+}
+.skip-link:focus {
+  position: fixed;
+  left: 20px;
+  top: 20px;
+  width: auto;
+  height: auto;
+  padding: 8px;
+  background: var(--fg);
+  color: var(--bg);
+  z-index: 100;
 }
 
+/* Body */
 body {
-  margin: 0;
+  font-family: var(--font-sans);
+  line-height: 1.5;
+  color: var(--fg);
+  background: var(--bg);
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--fg);
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+  min-height: 44px; /* 44px touch target */
+}
+.btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.btn-primary {
+  background: var(--accent);
+  color: var(--primary);
+}
+.btn-primary:hover {
+  background: var(--accent-bg);
+}
+.btn-secondary {
+  background: var(--bg);
+  border-color: var(--border);
+}
+.btn-secondary:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* Form inputs */
+.input {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
   background: var(--bg);
   color: var(--fg);
+  caret-color: var(--accent);
+}
+.input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-bg);
+}
+
+/* Verdict card */
+.verdict-card {
+  padding: 1.5rem;
+  border-radius: var(--radius-md);
+  text-align: center;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+.verdict-go { background: var(--verdict-go); color: white; }
+.verdict-go-care { background: var(--verdict-go-care); color: #1e2a44; }
+.verdict-wait { background: var(--verdict-wait); color: white; }
+.verdict-stay { background: var(--verdict-stay); color: white; }
+
+/* Status badges */
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  color: var(--fg);
+}
+
+/* Table row keyboard navigation */
+tr:hover {
+  background: var(--accent-bg);
+}
+tr:focus-within {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+/* Table accessibility */
+th,
+td {
+  padding: 0.75rem;
+  vertical-align: top;
 }
