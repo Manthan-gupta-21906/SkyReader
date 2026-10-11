@@ -77,7 +77,8 @@ export class ObservationRepo {
     await db.outcome_check.clear()
   }
   async correctLabel(id: number, newClassId: number): Promise<Observation | undefined> {
-    return db.observation.update(id, { user_label_class_id: newClassId })
+    await db.observation.update(id, { user_label_class_id: newClassId })
+    return this.get(id)
   }
 }
 

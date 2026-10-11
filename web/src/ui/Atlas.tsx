@@ -1,49 +1,165 @@
-import { Link, useLocation } from 'react-router-dom'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { CLOUD_CLASSES, ALTITUDE_BANDS, type CloudInfo } from '../domain/cloud-data'
+import { computeSampleAdvice } from '../advice/engine'
 
 export default function Atlas() {
-  const location = useLocation()
+  const navigate = useNavigate()
+  const [selectedCloud, setSelectedCloud] = useState<CloudInfo | null>(null)
+  const [filter, setFilter] = useState<string>('all')
 
-  const clouds = [
-    { code: 'Ci', name: 'Cirrus', altitude: 'High', howToSpot: 'Wispy, white, fibrous clouds looking like mare\'s tails or curlies. Visible at 20,000–40,000 ft.', typicalWeather: 'Fair weather, possible rain soon; indicates approaching frontal system.', whatToDo: 'Good for outdoor activities likely to remain fair; carry light jacket if windy.', imageCredit: '' },
-    { code: 'Cc', name: 'Cirrocumulus', altitude: 'High', howToSpot: 'Small, white, puffy clouds arranged in patterns like fish scales (mackerel sky).', typicalWeather: 'Fair but unstable; may precede a cold front or storm within 36 hours.', whatToDo: 'Good for outings; watch for increasing cloud cover.', imageCredit: '' },
-    { code: 'Cs', name: 'Cirrostratus', altitude: 'High', howToSpot: 'Thin, transparent white sheet covering the whole sky, often creating a halo around the sun or moon.', typicalWeather: 'Moisture increasing; rain possible within 12–24 hours.', whatToDo: 'Good for daytime outdoors; be prepared for possible evening rain.', imageCredit: '' },
-    { code: 'Ac', name: 'Altocumulus', altitude: 'Mid', howToSpot: 'White or gray patches, sheets, or layers, often with rounded masses or rolls. Visible in late morning.', typicalWeather: 'Mackerel sky may precede afternoon thunderstorms in humid conditions.', whatToDo: 'Good morning outings; watch for storm development by midday.', imageCredit: '' },
-    { code: 'As', name: 'Altostratus', altitude: 'Mid', howToSpot: 'Gray or blue-gray cloud layer covering the whole sky; sun may be visible as a bright spot. Sun halos uncommon.', typicalWeather: 'Overcast; steady rain or snow possible within several hours.', whatToDo: 'Limit outdoor activities; rain likely approaching.', imageCredit: '' },
-    { code: 'Ns', name: 'Nimbostratus', altitude: 'Low', howToSpot: 'Dark, thick, uniform gray cloud layer; clearly associated with continuous rain or snow.', typicalWeather: 'Persistent precipitation lasting hours; may be mixed with brief clearer periods.', whatToDo: 'Avoid outdoors unless equipped for rain; carry waterproof gear.', imageCredit: '' },
-    { code: 'Sc', name: 'Stratocumulus', altitude: 'Low', howToSpot: 'Low, lumpy, gray clouds with blue sky visible between them, often in rows or patches.', typicalWeather: 'Generally fair; may produce light drizzle or mist. Stable conditions.', whatToDo: 'Good for outdoors; pleasant conditions likely.', imageCredit: '' },
-    { code: 'St', name: 'Stratus', altitude: 'Low', howToSpot: 'Featureless, uniform gray cloud layer covering the sky like fog but aloft; sun/moon not visible.', typicalWeather: 'Drizzle or light snow possible; conditions may improve slowly.', whatToDo: 'Caution near wet surfaces; outdoor activities limited by low visibility.', imageCredit: '' },
-    { code: 'Cu', name: 'Cumulus', altitude: 'Low', howToSpot: 'Classic "fair weather" puffy clouds with flat bases and domed tops, often with sharp outlines. Base at ~1,000 ft.', typicalWeather: 'Fair weather; may grow into cumulonimbus (storm clouds) if humidity and instability increase.', whatToDo: 'Good for outdoors; monitor for development into towering clouds.', imageCredit: '' },
-    { code: 'Cb', name: 'Cumulonimbus', altitude: 'Vertical', howToSpot: 'Towering, dense clouds with anvil-shaped tops; often accompanied by lightning, thunder, heavy rain, or hail. Base low, top high.', typicalWeather: 'Severe weather: lightning, torrential rain, hail, damaging winds. Immediate shelter required.', whatToDo: 'STAY INDOORS. Avoid open ground, tall trees, and metal structures. Seek robust shelter immediately.', imageCredit: '' },
-    { code: 'Clr', name: 'Clear sky', altitude: 'None', howToSpot: 'Completely cloudless sky; vivid blue (day) or deep black (night); sharp celestial object edges.', typicalWeather: 'Optimal conditions for sun exposure and outdoor activities; no cloud-related weather risks.', whatToDo: 'Excellent for all outdoor activities; apply sunscreen for sun exposure.', imageCredit: '' },
-  ]
+  const filtered = filter === 'all'
+    ? CLOUD_CLASSES
+    : CLOUD_CLASSES.filter(c => c.altitude_band === filter)
+
+  const handleTryCloud = (cloud: CloudInfo) => {
+    const advice = computeSampleAdvice(cloud)
+    navigate('/result', { state: { cloud, advice, isDemo: true } })
+  }
 
   return (
-    <section className="p-4">
-      <h2>Cloud Atlas</h2>
-      <p>Select a cloud type to learn how to spot it, what it typically means for weather, and what to do outdoors.</p>
-      <div className="grid grid-cols-2 gap-4 mt-4">
-        {clouds.map((c) => (
-          <div
-            key={c.code}
-            className="group rounded-md border p-4 hover:border-accent transition-colors"
-            style={{ background: 'var(--cloud-white)' }}
+    <section className="max-w-5xl mx-auto px-4 py-6">
+      {/* Header */}
+      <div className="mb-6">
+        <h1 className="text-2xl md:text-3xl font-bold mb-2">
+          <span className="glow-text">Cloud Atlas</span>
+        </h1>
+        <p className="text-[var(--color-space-100)] text-sm">
+          Learn to identify the 10 cloud genera and clear sky. Tap a cloud to learn more.
+        </p>
+      </div>
+
+      {/* Altitude Diagram */}
+      <div className="glass-card p-5 mb-6">
+        <h2 className="text-xs font-semibold text-[var(--color-aurora-cyan)] uppercase tracking-wide mb-3">
+          Altitude Guide
+        </h2>
+        <div className="altitude-bar relative">
+          {/* Altitude labels */}
+          <span className="altitude-label text-[var(--color-nebula-indigo)]" style={{ top: '8px' }}>High (6–12 km)</span>
+          <span className="altitude-label text-[var(--color-aurora-cyan)]" style={{ top: '40%' }}>Mid (2–6 km)</span>
+          <span className="altitude-label text-[var(--color-aurora-green)]" style={{ top: '72%' }}>Low (0–2 km)</span>
+
+          {/* Cloud dots on diagram */}
+          {CLOUD_CLASSES.filter(c => c.altitude_band !== 'none').map((c) => {
+            const pos = ALTITUDE_BANDS[c.altitude_band]?.position || 50
+            return (
+              <button
+                key={c.code}
+                onClick={() => setSelectedCloud(c)}
+                className="absolute flex items-center gap-1 cursor-pointer hover:scale-110 transition-transform group"
+                style={{
+                  top: `${pos}%`,
+                  left: `${10 + (c.label_index * 7.5)}%`,
+                  transform: 'translateY(-50%)',
+                }}
+                title={c.name}
+              >
+                <span className="text-lg group-hover:scale-125 transition-transform">{c.icon}</span>
+                <span className="text-[10px] font-semibold text-[var(--color-star-white)] opacity-0 group-hover:opacity-100 transition-opacity">
+                  {c.code}
+                </span>
+              </button>
+            )
+          })}
+        </div>
+      </div>
+
+      {/* Filter Tabs */}
+      <div className="flex gap-2 mb-5 overflow-x-auto pb-1 scrollbar-hide">
+        {['all', 'high', 'mid', 'low', 'vertical', 'none'].map((band) => (
+          <button
+            key={band}
+            onClick={() => setFilter(band)}
+            className={`btn btn-sm whitespace-nowrap ${
+              filter === band ? 'btn-primary' : 'btn-secondary'
+            }`}
           >
-            <div className="text-xs font-medium text-muted mb-1">{c.code}</div>
-            <h3 className="text-lg font-bold text-fg">{c.name}</h3>
-            <p className="text-sm text-muted mb-3">{c.howToSpot}</p>
-            <div className="flex justify-between text-xs">
-              <span>Altitude: {c.altitude}</span>
-              <Link to={`/result?cloud=${c.code}`} className={location.pathname.includes(`result`) ? 'text-accent' : 'text-muted hover:text-primary'}>
-                Check conditions
-              </Link>
-            </div>
-            <p className="mt-2 text-caption text-muted">{c.typicalWeather}</p>
-            <p className="mt-1 text-caption font-medium">{c.whatToDo}</p>
-            {c.imageCredit && (
-              <p className="mt-2 text-caption text-muted italic">Image: {c.imageCredit}</p>
-            )}
-          </div>
+            {band === 'all' ? 'All' : band === 'none' ? 'Clear' : band.charAt(0).toUpperCase() + band.slice(1)}
+          </button>
         ))}
+      </div>
+
+      {/* Cloud Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {filtered.map((cloud) => {
+          const sampleAdvice = computeSampleAdvice(cloud)
+          return (
+            <div
+              key={cloud.code}
+              className="glass-card p-5 cursor-pointer group hover:scale-[1.01] transition-all"
+              onClick={() => setSelectedCloud(selectedCloud?.code === cloud.code ? null : cloud)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => e.key === 'Enter' && setSelectedCloud(selectedCloud?.code === cloud.code ? null : cloud)}
+            >
+              <div className="flex items-start gap-4">
+                <span className="text-4xl shrink-0">{cloud.icon}</span>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 mb-1">
+                    <h3 className="text-base font-bold text-[var(--color-star-white)] group-hover:text-[var(--color-aurora-cyan)] transition-colors">
+                      {cloud.name}
+                    </h3>
+                    <span className="text-xs text-[var(--color-space-200)]">({cloud.code})</span>
+                  </div>
+                  <span className={`badge badge-${cloud.altitude_band === 'vertical' ? 'vertical' : cloud.altitude_band}`}>
+                    {ALTITUDE_BANDS[cloud.altitude_band]?.label || cloud.altitude_band}
+                  </span>
+                  <p className="text-sm text-[var(--color-space-100)] mt-2 leading-relaxed">
+                    {cloud.how_to_spot}
+                  </p>
+
+                  {/* Expanded Details */}
+                  {selectedCloud?.code === cloud.code && (
+                    <div className="mt-4 space-y-4 animate-in fade-in">
+                      <div className="divider" />
+
+                      <div>
+                        <h4 className="text-xs font-semibold text-[var(--color-aurora-cyan)] uppercase tracking-wide mb-1">
+                          Typical Weather
+                        </h4>
+                        <p className="text-sm text-[var(--color-star-dim)]">{cloud.usual_meaning}</p>
+                      </div>
+
+                      <div>
+                        <h4 className="text-xs font-semibold text-[var(--color-aurora-cyan)] uppercase tracking-wide mb-1">
+                          What to Do
+                        </h4>
+                        <p className="text-sm text-[var(--color-star-dim)]">{cloud.what_to_do}</p>
+                      </div>
+
+                      <div className="flex items-center gap-3">
+                        <div>
+                          <span className="text-xs text-[var(--color-space-200)]">Signal: </span>
+                          <span className="text-xs font-semibold text-[var(--color-star-white)]">
+                            {cloud.signal_type.replace(/_/g, ' ')}
+                          </span>
+                        </div>
+                        {cloud.is_storm_signal && (
+                          <span className="badge badge-stay">⚡ Storm Signal</span>
+                        )}
+                      </div>
+
+                      <div className="flex items-center gap-2">
+                        <span className={`badge badge-${sampleAdvice.verdict === 'go' ? 'go' : sampleAdvice.verdict === 'go_with_care' ? 'care' : sampleAdvice.verdict === 'wait' ? 'wait' : 'stay'}`}>
+                          Sample: {sampleAdvice.verdictLabel}
+                        </span>
+                        <span className="text-xs text-[var(--color-space-200)]">Score: {sampleAdvice.score}</span>
+                      </div>
+
+                      <button
+                        onClick={(e) => { e.stopPropagation(); handleTryCloud(cloud) }}
+                        className="btn btn-ghost btn-sm w-full"
+                      >
+                        Try this cloud →
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          )
+        })}
       </div>
     </section>
   )
