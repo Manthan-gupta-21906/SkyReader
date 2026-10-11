@@ -1,5 +1,5 @@
 import { createRoot } from 'react-dom/client'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { createHashRouter, RouterProvider } from 'react-router-dom'
 import './index.css'
 import App from './App.tsx'
 import Sky from './ui/Sky.tsx'
@@ -9,7 +9,7 @@ import Settings from './ui/Settings.tsx'
 import Result from './ui/Result.tsx'
 import Onboarding from './ui/Onboarding.tsx'
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: '/',
     element: <App />,
