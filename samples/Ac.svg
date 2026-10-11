@@ -1,0 +1,4 @@
+<!-- Ac - Altocumulus: patchy mid-level clouds -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-label="Altocumulus cloud">
+  <path fill="#a78bfa" d="M32 4c12 8 24 10 24 24s-12 16-24 16S8 20 8 12 20 4 32 4zM32 24c6 0 10 3 13 7V40c0-4-3-7-7-7z"/>
+</svg>

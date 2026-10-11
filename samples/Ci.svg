@@ -1,0 +1,4 @@
+<!-- Ci - Cirrus: wispy high-level clouds -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-label="Cirrus cloud">
+  <path fill="#3b82c4" d="M32 8c16 0 24 12 24 24v8c0 5-2 9-6 11-4 2-8 1-11-3L32 44 12 25c-4-2-6-1-11-3-4-2-6-1-11-3V40c0-12 8-24 24-24z"/>
+</svg>

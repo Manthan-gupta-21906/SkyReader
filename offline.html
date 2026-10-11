@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SkyReader - Offline</title>
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+        background: var(--bg);
+        color: var(--fg);
+      }
+      .offline-card {
+        padding: 2rem;
+        border-radius: var(--radius-md);
+        background: var(--card-bg);
+        box-shadow: var(--shadow-md);
+        text-align: center;
+        max-width: 400px;
+      }
+      .offline-icon {
+        width: 64px;
+        height: 64px;
+        margin: 0 auto 1rem;
+        filter: invert(var(--invert, 0));
+      }
+    </style>
+  </head>
+  <body>
+    <div class="offline-card">
+      <svg className="offline-icon" viewBox="0 0 24 24" fill="currentColor" aria-label="offline">
+        <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2zM13 3H5v2h6V5H5v2h6V3zM5 19h2v-6H5v6zM3 13h2v6H3v-6zM15 19h2v-6h-2v6zM21 13h-2v6h2v-6z"/>
+      </svg>
+      <h2>You're offline</h2>
+      <p>SkyReader works best with an internet connection. Weather data and model updates require connectivity.</p>
+      <p>You can still view previously saved observations and results stored on this device.</p>
+      <button className="btn btn-primary" onclick="window.location.reload()">Try again</button>
+    </div>
+  </body>
+</html>

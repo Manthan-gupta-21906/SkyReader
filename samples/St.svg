@@ -1,0 +1,4 @@
+<!-- St - Stratus: flat, low-level cloud layer -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-label="Stratus cloud">
+  <path fill="#f6e05e" d="M32 4c16 0 32 14 32 32V40C32 54 16 64 0 64V36C16 64 0 54 0 36V8c16 0 32 14 32 32z"/>
+</svg>

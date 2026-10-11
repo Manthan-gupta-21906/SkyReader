@@ -1,0 +1,4 @@
+<!-- Cs - Cirrostratus: thin sheet of high clouds -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-label="Cirrostratus cloud">
+  <path fill="#6b46c1" d="M32 4c20 0 32 16 32 36V40C32 58 16 64 0 64V36C0 16 16 4 32 4z"/>
+</svg>
