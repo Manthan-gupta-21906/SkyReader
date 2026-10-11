@@ -1,4 +1,4 @@
-# dependencies (bun install)
+# dependencies
 node_modules
 
 # output
@@ -27,9 +27,7 @@ ml/data/
 ml/packs/*.zip
 
 # Large model files
-*.onnx
-*.bin
-*.jit
+# (kept out so web/public/models/ stays committable)
 
 # OS/editor files
 *.swp
